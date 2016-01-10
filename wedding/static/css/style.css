@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    font-family: 'Courier New';
+    color: #35495e;
+}
+
+a {
+    color: #3b97d3;
+    font-weight: bolder;
+}
+
+strong {
+    font-weight:bolder;
+}
+p {
+    margin:0;
+}
+
+section {
+    height: 100vh;
+}
+
+nav {
+    background: rgba(255,255,255,0.9);
+
+    box-shadow: none;
+
+}
+
+.brand-logo {
+    padding: 10px !important;
+}
+
+nav a, nav ul a, nav ul li {
+    color: #35495e;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #35495e;
+}
+
+nav ul a:hover {
+    background-color: transparent;
+}
+
+nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-nav li.active {
+    background-color: transparent;
+    color: #70cce4 !important;
+
+}
+
+.top {
+    padding-top: 20vh;
+}
+
+.church_bg {
+    background: #70cce4 url(../img/church_bg.svg) repeat-x center bottom;
+}
+
+.church {
+    height: 100vh;
+    background: url(../img/church.svg) no-repeat center bottom;
+}
+
+.reception_bg {
+    background: #35495e url(../img/reception_bg.svg) repeat-x center bottom;
+    color:white;
+}
+
+.reception {
+    height: 100vh;
+    background: url(../img/reception.svg) no-repeat center bottom;
+}
+
+.getting_there_bg {
+    background: #70cce4 url(../img/get_there_bg.svg) repeat-x center bottom;
+}
+
+.getting_there {
+    background: url(../img/get_there.svg) no-repeat center bottom;
+    height: 100vh;
+}
+
+.collection .collection-item.avatar {
+    min-height: 63px;
+}
+
+
+.gifts {
+    background-color: #d15627;
+    color:white;
+}
+
+.description {
+    padding: 5%;
+}
+
+.blue-text {
+    color: #70cce4 !important;
+}
+
+.large-text {
+    font-size: 1.2em;
+}
+
+.guest-circle {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-color: #70cce4;
+    padding: 30px 26px 26px;
+    margin: 0 auto;
+
+
+}
+
+.guest-circle p {
+    color:#35495e;
+    font-weight:bolder;
+    text-align: center !important;
+}
+
+/* label color */
+   .input-field label {
+     color: #70cce4;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #70cce4;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #70cce4;
+     box-shadow: 0 1px 0 0 #70cce4;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #70cce4;
+     box-shadow: 0 1px 0 0 #70cce4;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #70cce4;
+     box-shadow: 0 1px 0 0 #70cce4;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #000;
+   }

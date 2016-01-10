@@ -1,0 +1,49 @@
+<div class="row">
+    <div id="person_{{ person_count }}" class="col s12">
+        <div class="col s12">
+            <div class="col s12 m12">
+                <h5>Guest {{ person_count }}</h5>
+            </div>
+
+            <div class="col s12 m12">
+                <div class="input-field col s3">
+                    <select name="adult_child_{{ person_count }}">
+                        <option value="adult" selected>Adult</option>
+                        <option value="child">Child (Under 5)</option>
+                    </select>
+                    <label>Adult or Child</label>
+                </div>
+
+
+                <div class="input-field col s4">
+                    <input id="first_name_{{ person_count }}"
+                           type="text" class="validate"
+                           name="first_name_{{ person_count }}">
+                    <label for="first_name_{{ person_count }}">First
+                        Name</label>
+                </div>
+
+                <div class="clear"></div>
+                <div class="input-field col s5">
+                    <input id="last_name_{{ person_count }}"
+                           type="text" class="validate"
+                           name="last_name_{{ person_count }}">
+                    <label for="last_name_{{ person_count }}">Last
+                        Name</label>
+                </div>
+
+
+                <div class="clear"></div>
+
+                <div class="input-field col s12 m12">
+                    <input id="diet_requirements_{{ person_count }}"
+                           class="materialize-textarea" type="text"
+                           name="diet_requirements_{{ person_count }}"/>
+                    <label for="diet_requirements_{{ person_count }}">Dietary
+                        Requirements</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

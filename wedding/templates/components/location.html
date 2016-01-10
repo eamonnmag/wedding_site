@@ -1,0 +1,11 @@
+{% for loc in locations %}
+    <li class="collection-item avatar">
+        <img src="{{ loc.image_url }}"
+             alt="" class="circle">
+        <span class="title">{{ loc.name }}, {{ loc.town }}</span>
+        <p>{{ loc.distance_km_from_cathedral }}km from Cathedral. {{ loc.distance_km_from_reception }}km from Reception.
+        </p>
+        <a href="{{ loc.booking_url }}"
+           class="secondary-content"><i class="material-icons">open_in_new</i></a>
+    </li>
+{% endfor %}
