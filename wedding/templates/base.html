@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}Annapaola and Eamonn | 14th May 2016{% endblock %}</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+{% block menu %}
+    <div class="navbar-fixed">
+        <nav>
+
+            <div class="nav-wrapper">
+                <a href="#welcome" class="scroll_link brand-logo"><img
+                        src="{{ STATIC_URL }}img/logo.svg" width="50px"/> </a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i
+                        class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#ceremony" class="scroll_link">Ceremony</a></li>
+                    <li><a href="#reception" class="scroll_link">Reception</a></li>
+                    <li><a href="#getting_there" class="scroll_link">Getting
+                        There</a></li>
+                    <li><a href="#rsvp" class="scroll_link">RSVP</a></li>
+                    <li><a href="#gifts" class="scroll_link">Gifts</a></li>
+                    <li><a href="/accounts/logout">Log out</a></li>
+
+                </ul>
+
+                <ul class="side-nav" id="mobile-demo">
+                    <div align="center">
+                        <img src="{{ STATIC_URL }}img/logo.svg" width="50px"/>
+                    </div>
+                    <li><a href="#ceremony" class="scroll_link">Ceremony</a></li>
+                    <li><a href="#reception" class="scroll_link">Reception</a></li>
+                    <li><a href="#getting_there" class="scroll_link">Getting
+                        There</a></li>
+                    <li><a href="#rsvp" class="scroll_link">RSVP</a></li>
+                    <li><a href="#gifts" class="scroll_link">Gifts</a></li>
+                    <li><a href="/accounts/logout">Log out</a></li>
+
+
+                    <li><a href="/?l=it"><img src="{{ STATIC_URL }}img/flag-ita.svg"
+                                            width="20px"/></a></li>
+                    <li><a href="/?l=en"><img src="{{ STATIC_URL }}img/flag-ire.svg"
+                                            width="20px"/></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+<script type="text/javascript"
+        src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+{% include 'components/guest_form_components.html' %}
+{% include 'components/scripts.html' %}
+
+
+</body>
+</html>

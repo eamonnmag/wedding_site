@@ -51,5 +51,4 @@ class RSVP(models.Model):
     attendees = models.ManyToManyField(Attendant, null=True)
 
     def __str__(self):
-        return "{0} - {1}".format(self.family_name, len(self.attendees),
-                                  self.email_address)
+        return "{0} - {1} Guests".format(self.family_name, len(self.attendees.all()))

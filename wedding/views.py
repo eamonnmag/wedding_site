@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
 
 # Create your views here.
 from django.template import RequestContext
@@ -10,10 +10,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from wedding.models import Location, RSVP, Attendant
+from wedding.utils.ip import get_client_ip
 
 
 @login_required
 def home(request):
+
+    lang = request.GET.get('l', 'en')
+
     hotels_trani = Location.objects.filter(town='Trani',
                                            type='H').order_by(
             'distance_km_from_cathedral')
@@ -26,10 +30,16 @@ def home(request):
             'distance_km_from_cathedral')
     bandb_barletta = Location.objects.filter(town='Barletta', type='B').order_by('distance_km_from_cathedral')
 
-    return render_to_response("main.html", {'hotels_trani': hotels_trani,
-                                            'hotels_barletta': hotels_barletta,
-                                            'bandb_barletta': bandb_barletta,
-                                            'bandb_trani': bandb_trani},
+    ip_address = get_client_ip(request)
+
+    rsvp = RSVP.objects.filter(ip_address=ip_address).first()
+    print(rsvp)
+
+    return render_to_response("{0}.html".format(lang), {'existing_rsvp': rsvp,
+                                                        'hotels_trani': hotels_trani,
+                                                        'hotels_barletta': hotels_barletta,
+                                                        'bandb_barletta': bandb_barletta,
+                                                        'bandb_trani': bandb_trani},
                               context_instance=RequestContext(request))
 
 
@@ -38,8 +48,6 @@ def home(request):
 @require_http_methods(["POST"])
 def accept_rsvp(request):
     ip_address = get_client_ip(request)
-
-    print(request.POST)
 
     family_name = request.POST.get('family_name', None)
     attending = request.POST.get('attending')
@@ -59,21 +67,11 @@ def accept_rsvp(request):
         rsvp.save()
 
         for attendee in attendees:
-            print attendee
             attendant = Attendant(first_name=attendee['firstname'], last_name=attendee['lastname'],
                                   nationality=attendee['nationality'],
+                                  type = attendee['adultchild'],
                                   dietary_requirements=attendee['dietrequirements'])
             attendant.save()
-            print attendant
             rsvp.attendees.add(attendant)
 
         return JsonResponse({'success': True})
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip

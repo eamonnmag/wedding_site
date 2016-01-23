@@ -145,6 +145,11 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
     overflow-y: auto;
 }
 
+#guest_summary {
+    max-height: 35vh;
+    overflow-y: auto;
+}
+
 .person {
     background-color: #ecf0f1;
     padding: 20px;

@@ -1,0 +1,131 @@
+
+<script>
+    $(".button-collapse").sideNav();
+    $('.modal-trigger').leanModal();
+
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+    var attending = false;
+    var attendees = [];
+
+    $('#attendance').on('change', function () {
+        if ($(this).val() === 'yes') {
+            $('#guest_count').prop('disabled', false)
+        } else {
+            $('#guest_count').prop('disabled', true)
+        }
+        check_to_show_submit();
+    });
+
+    function add_attendee(index) {
+        attendees.push({'person_count': index+1, 'firstname': '', 'lastname': '', adultchild: '', 'nationality': '', 'dietrequirements': ''})
+    }
+
+    function update_attendee(field) {
+        // get person count -> gives index.
+        // get index item and set field value
+        var name_id = field.attr('id').split("_");
+        var index = parseInt(name_id[1])-1;
+        var field_name = name_id[0];
+        var value = field.val();
+        attendees[index][field_name] = value;
+    }
+
+    var no_guest_source = $("#no-guest-template").html();
+    var no_attendance_source = $("#no-attendance-template").html();
+
+    var no_guest_template = Handlebars.compile(no_guest_source);
+    var no_attendance_template = Handlebars.compile(no_attendance_source);
+
+    var no_guest_html = no_guest_template('');
+    var no_attendance_html = no_attendance_template('');
+
+    function check_to_show_submit() {
+        if ($('#family_name').val().length > 0) {
+            if ($('#attendance').val() === 'yes') {
+                attending = true;
+
+                if (parseInt($('#guest_count').val()) > 0) {
+
+                    $('#submit_btn').prop('disabled', false);
+                    var source = $("#guest-template").html();
+                    var template = Handlebars.compile(source);
+
+                    var guest_count = parseInt($('#guest_count').val());
+
+                    for (var i = 0; i < guest_count; i++) {
+                        if (i >= attendees.length) add_attendee(i);
+                    }
+
+                    if (guest_count < attendees.length) {
+                        attendees = attendees.slice(0, guest_count);
+                    }
+
+                    var context = attendees;
+                    var html = template(context);
+
+                    $("#guests").html(html);
+                    $('select').material_select();
+                    $("#guests").removeClass('hidden');
+                } else {
+                    $("#guests").html(no_guest_html);
+                    $('#submit_btn').prop('disabled', true);
+                }
+            } else {
+                attending = false;
+                $("#guests").html(no_attendance_html);
+                $('#submit_btn').prop('disabled', false);
+            }
+        } else {
+            $('#submit_btn').prop('disabled', true);
+        }
+    }
+
+    $("#guests").on('change', ".person select", function () {
+        update_attendee($(this));
+    });
+
+    $("#guests").on('input', ".person input", function () {
+        update_attendee($(this));
+    });
+
+
+    $('#family_name, #guest_count').on('input', function () {
+        check_to_show_submit();
+    });
+
+    $('#submit_btn').on('click', function () {
+        submit_form()
+    });
+
+
+    var submit_form = function () {
+        var rsvp_json = {
+            'family_name': $('#family_name').val(),
+            "guests": attending ? attendees.length : 0, "attending": attending, "guest_details": JSON.stringify(attendees)
+        };
+
+        $.ajax({
+            method: "POST",
+            url: "/rsvp",
+            data: rsvp_json,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+
+        })
+    };
+
+
+    $(".scroll_link").click(function (e) {
+        e.preventDefault();
+
+        var position = $(this).attr('href');
+        $('html, body').animate({
+            scrollTop: $(position).offset().top
+        }, 1000);
+    })
+</script>

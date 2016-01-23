@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <section id="welcome" class="top" align="center">
+
+        <img src="{{ STATIC_URL }}img/heart.svg" width="30px">
+        <br/>
+        <img src="{{ STATIC_URL }}img/us.svg" width="160px">
+        <br/>
+
+        <p class="large-text">Annapaola <span class="blue-text large-text">&</span>
+            Eamonn</p>
+
+
+        <p style="font-weight: bolder;">14th May 2016</p>
+
+        <br/><br/>
+        <p>
+            <a href="/?l=it"><img src="{{ STATIC_URL }}img/flag-ita.svg" width="17"/> Versione Italiana</a>
+        </p>
+    </section>
+
+    <section id="ceremony" class="church_bg">
+        <div class="church">
+            <div class="description">
+                <h4>The Ceremony</h4>
+
+                <p style="font-weight: bolder;">Basilica Cattedrale di Trani,
+                    Trani, Puglia</p><br/>
+
+                <p>Right on the coast, this beautiful Cathedral will host our
+                    wedding.</p><br/>
+
+                <p>The ceremony will begin at <strong>4.30pm</strong>. Guests are
+                    requested to arrive <strong>30 minutes</strong> before the
+                    ceremony. </p><br/>
+                <p>Parking is normally available outside the Cathedral. A bus will
+                    be available to transport those in hotels and Lavello to the
+                    cathedral and the <a href="#reception">reception venue</a>.</p>
+                <br/>
+                <a href="https://www.google.it/maps/place/Cattedrale+di+Trani+-+Basilica/@41.2819073,16.4158642,852m/data=!3m1!1e3!4m2!3m1!1s0x1338040b58cc7ce3:0x880f0c96b60233ee!6m1!1e1?hl=it"
+                   target="_blank" class="waves-effect waves-light btn light-blue">Google
+                    Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reception" class="reception_bg">
+        <div class="reception">
+            <div class="description">
+                <h4>The Reception</h4>
+
+                <p>Villa Sant’Elia, Andria-Corato, Puglia</p><br/>
+
+                <a href="http://www.villasantelia.it/index.asp" target="_blank"
+                   class="waves-effect waves-light btn light-blue">Villa
+                    Sant’Elia</a> <a
+                    href="https://www.google.it/maps/place/Villa+Sant'Elia/@41.1787206,16.3590611,672m/data=!3m2!1e3!4b1!4m2!3m1!1s0x13380fceb5bec197:0x6669518639ca16e!6m1!1e1?hl=it"
+                    target="_blank"
+                    class="waves-effect waves-light btn light-blue">Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="getting_there" class="getting_there_bg">
+        <div class="getting_there">
+            <div class="description">
+                <h4>Getting There</h4>
+
+                <div class="row">
+                    <div class="col m3">
+                        <img src="{{ STATIC_URL }}img/map.svg" width="100%"/>
+                    </div>
+
+                    <div class="col m9">
+                        <p>The wedding and reception is in the Puglia region of
+                            Italy.</p><br/>
+
+                        <p>The closest airport is in Bari which is ~45 minutes away
+                            from the wedding venue in Trani. Bari is served by
+                            Ryanair from Dublin, AlItalia and Ryanair from
+                            London</p>
+                        <br/>
+
+                        <p>The wedding venue, Villa Sant'Elia is ~25 minutes away
+                            from Trani.</p><br/>
+
+                        <p>Hotels are available in Trani, as are B&Bs (and airbnb).
+                            The nearby town of Barletta also has
+                            various hotels.</p><br/>
+
+                        <button data-target="hotel_modal"
+                                class="btn waves-effect waves-light btn light-blue modal-trigger">
+                            Hotels
+                        </button>
+                        <button data-target="bandb_modal"
+                                class="btn waves-effect waves-light btn light-blue modal-trigger">
+                            B&Bs
+                        </button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp" class="rsvp_bg">
+        <div class="rsvp">
+            <div class="description">
+                <h4>RSVP {% if existing_rsvp %}Received{% endif %}</h4>
+
+
+                {% if existing_rsvp %}
+                    <div align="center">
+                    <i class="material-icons large">move_to_inbox</i>
+                    </div>
+
+                    <br/>
+
+                    <p class="large-text center">Thank you for sending the RSVP for the {{ existing_rsvp.family_name }} family! </p><br/>
+
+                    <hr/>
+                    <br/><br/>
+                    {% if existing_rsvp.attending %}
+                        <p>We're looking forward to seeing you at the wedding!</p>
+<br/>
+                        <p>Get excited and read more about the beautiful location you're going to be visiting <a href=""
+                                                                                                                 target="_new">here</a>.
+                        </p>
+                        <br/>
+                    {% else %}
+                        <p>We're sorry you can't attend, but understand! We hope to see the {{ existing_rsvp.family_name }} clan soon!</p>
+                        <br/>
+                    {% endif %}
+
+
+                    <p>If any of these details are incorrect, please email us at <a
+                            href="mailto:edits@annapaola-and-eamonn.it?subject=Edits for {{ existing_rsvp.family_name }}">edits@annapaola-and-eamonn.it</a>.
+                    </p>
+
+
+
+                    {% if existing_rsvp.attending %}
+                        <br/>
+                        <p>Guest details:</p><br/>
+
+                        <ul class="collection" id="guest_summary">
+                            {% for attendant in existing_rsvp.attendees.all %}
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle {% if attendant.type == 'adult' %}red{% else %}blue{% endif %}">
+                                        {% if attendant.type == 'adult' %}person{% else %}
+                                            child_care{% endif %}</i>
+                                    <span class="title">{{ attendant.first_name }} {{ attendant.last_name }} ({{ attendant.nationality }})</span>
+                                    <p><strong>Dietary requirements:</strong> {{ attendant.dietary_requirements }}
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    {% endif %}
+
+
+
+
+
+                {% else %}
+
+                    <p>Let us know if you can attend our wedding. Once you specify if
+                        you can go or not, you will be asked for the number of
+                        guests.</p>
+                    <br/>
+                    <div class="row">
+                        <div class="input-field col m4 s12">
+                            <input id="family_name"
+                                   type="text" name="family_name">
+                            <label for="family_name">Family Name</label>
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            <select id="attendance" name="attendance">
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                            <label>Are you able to attend?</label>
+                        </div>
+
+                        <div class="input-field col m5 s12" id="guest_count_container">
+                            <input id="guest_count"
+                                   type="number" name="guest_count" disabled>
+                            <label for="guest_count">Number of Guests (incl. children)</label>
+                        </div>
+
+                    </div>
+
+                    <div class="row guests hidden" id="guests">
+                        {#                this is auto populated given the number of guests entered#}
+                    </div>
+
+                    <div class="row center">
+                        <button id="submit_btn" class="btn waves-effect waves-light"
+                                type="submit"
+                                name="action" disabled>Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gifts" class="gifts">
+        <div class="description">
+            <h4>Gifts</h4>
+
+            <div align="center">
+                <img src="{{ STATIC_URL }}img/gifts.svg" width="100px"/>
+            </div>
+            <br/><br/>
+
+            <p>A cliché, but the best gift for us is having you there, and we know
+                there’s a lot of
+                expense for those travelling from abroad.</p>
+            <br/>
+
+            <p>However, If you wish to provide a gift, we will be going on
+                honeymoon to South America.</p>
+            <br/>
+
+        </div>
+    </section>
+
+    <div id="hotel_modal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Hotels</h4>
+
+            <p>Trani</p>
+            <ul class="collection">
+                {% include 'components/location.html' with locations=hotels_trani %}
+            </ul>
+
+            <br/>
+
+            <p>Barletta</p>
+            <ul class="collection">
+                {% include 'components/location.html' with locations=hotels_barletta %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="bandb_modal" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Bed & Breakfasts</h4>
+            <p>Trani</p>
+            <ul class="collection">
+                {% include 'components/location.html' with locations=bandb_trani %}
+            </ul>
+
+            <p>Barletta</p>
+            <ul class="collection">
+                {% include 'components/location.html' with locations=bandb_barletta %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
