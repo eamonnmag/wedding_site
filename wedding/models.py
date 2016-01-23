@@ -28,16 +28,12 @@ class Location(models.Model):
 
 
 class Attendant(models.Model):
+    type = models.CharField(max_length=32)
+
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
+    nationality = models.CharField(max_length=64, null=True)
 
-    type_choices = (
-        ('A', 'Adult'),
-        ('C16', 'Child (Under 5-16)'),
-        ('C5', 'Child (Under 5)')
-    )
-
-    type = models.CharField(max_length=32, choices=type_choices)
     dietary_requirements = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -46,17 +42,13 @@ class Attendant(models.Model):
 
 
 class RSVP(models.Model):
+
+    ip_address = models.CharField(max_length=256, null=True)
     family_name = models.CharField(max_length=128)
 
-    attendees = models.ManyToManyField(Attendant, null=False)
+    attending = models.BooleanField(default=False)
 
-    address_line1 = models.TextField(max_length=256)
-    address_line2 = models.TextField(max_length=256)
-    town = models.TextField(max_length=256)
-    postcode = models.TextField(max_length=256)
-
-    email_address = models.EmailField()
-    phone = models.CharField(max_length=128)
+    attendees = models.ManyToManyField(Attendant, null=True)
 
     def __str__(self):
         return "{0} - {1}".format(self.family_name, len(self.attendees),

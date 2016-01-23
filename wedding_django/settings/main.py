@@ -32,13 +32,15 @@ CSRF_COOKIE_SECURE = False
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wedding',
+    'django.contrib.admin',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'wedding_django.urls'
 
 WSGI_APPLICATION = 'wedding_django.wsgi.application'
-
+LOGIN_REDIRECT_URL = "/"
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -62,7 +64,7 @@ WSGI_APPLICATION = 'wedding_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

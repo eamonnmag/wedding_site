@@ -10,13 +10,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
-<script type="text/javascript"
-        src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 <div class="navbar-fixed">
     <nav>
@@ -175,9 +172,9 @@
             <p>Let us know if you can attend our wedding. Once you specify if
                 you can go or not, you will be asked for the number of
                 guests.</p>
-            <br/><br/>
+            <br/>
             <div class="row">
-                <div class="input-field col m5 s12">
+                <div class="input-field col m4 s12">
                     <input id="family_name"
                            type="text" name="family_name">
                     <label for="family_name">Family Name</label>
@@ -191,19 +188,24 @@
                     <label>Are you able to attend?</label>
                 </div>
 
-                <div class="input-field col m4 s12" id="guest_count_container">
+                <div class="input-field col m5 s12" id="guest_count_container">
                     <input id="guest_count"
                            type="number" name="guest_count" disabled>
-                    <label for="guest_count">Number of Guests</label>
+                    <label for="guest_count">Number of Guests (incl. children)</label>
                 </div>
+
+            </div>
+
+            <div class="row guests hidden" id="guests">
+                {#                this is auto populated given the number of guests entered#}
             </div>
 
             <div class="row center">
-                <a id="submit_btn" class="btn waves-effect waves-light"
-                        type="submit" href="#guest_modal"
+                <button id="submit_btn" class="btn waves-effect waves-light"
+                        type="submit"
                         name="action" disabled>Submit
                     <i class="material-icons right">send</i>
-                </a>
+                </button>
             </div>
 
         </div>
@@ -265,17 +267,12 @@
 </div>
 
 
-<div id="guest_modal" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        {% include 'components/rsvp_form.html' with person_count=1 %}
-        {% include 'components/rsvp_form.html' with person_count=2 %}
-    </div>
-    <div class="modal-footer">
-        <a href="#!"
-           class="modal-action modal-close waves-effect waves-green btn-flat ">Submit</a>
-    </div>
+<script type="text/javascript"
+        src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 
-</div>
+{% include 'components/guest_form_components.html' %}
 
 <script>
     $(".button-collapse").sideNav();
@@ -286,6 +283,7 @@
     });
 
     var attending = false;
+    var attendees = [];
 
     $('#attendance').on('change', function () {
         if ($(this).val() === 'yes') {
@@ -296,19 +294,63 @@
         check_to_show_submit();
     });
 
+    function add_attendee(index) {
+        attendees.push({'person_count': index+1, 'firstname': '', 'lastname': '', adultchild: '', 'nationality': '', 'dietrequirements': ''})
+    }
+
+    function update_attendee(field) {
+        // get person count -> gives index.
+        // get index item and set field value
+        var name_id = field.attr('id').split("_");
+        var index = parseInt(name_id[1])-1;
+        var field_name = name_id[0];
+        var value = field.val();
+        attendees[index][field_name] = value;
+    }
+
+    var no_guest_source = $("#no-guest-template").html();
+    var no_attendance_source = $("#no-attendance-template").html();
+
+    var no_guest_template = Handlebars.compile(no_guest_source);
+    var no_attendance_template = Handlebars.compile(no_attendance_source);
+
+    var no_guest_html = no_guest_template('');
+    var no_attendance_html = no_attendance_template('');
+
     function check_to_show_submit() {
         if ($('#family_name').val().length > 0) {
             if ($('#attendance').val() === 'yes') {
                 attending = true;
-                $('#submit_btn').html('Guest Details <i class="material-icons right">group_add</i>');
-                if ($('#guest_count').val().length > 0) {
+
+                if (parseInt($('#guest_count').val()) > 0) {
+
                     $('#submit_btn').prop('disabled', false);
+                    var source = $("#guest-template").html();
+                    var template = Handlebars.compile(source);
+
+                    var guest_count = parseInt($('#guest_count').val());
+
+                    for (var i = 0; i < guest_count; i++) {
+                        if (i >= attendees.length) add_attendee(i);
+                    }
+
+                    if (guest_count < attendees.length) {
+                        attendees = attendees.slice(0, guest_count);
+                    }
+
+                    var context = attendees;
+                    var html = template(context);
+
+                    $("#guests").html(html);
+                    $('select').material_select();
+                    $("#guests").removeClass('hidden');
                 } else {
+                    $("#guests").html(no_guest_html);
                     $('#submit_btn').prop('disabled', true);
                 }
             } else {
                 attending = false;
-                $('#submit_btn').html('Submit <i class="material-icons right">send</i>');
+                $("#guests").html(no_attendance_html);
                 $('#submit_btn').prop('disabled', false);
             }
         } else {
@@ -316,18 +358,41 @@
         }
     }
 
+    $("#guests").on('change', ".person select", function () {
+        update_attendee($(this));
+    });
+
+    $("#guests").on('input', ".person input", function () {
+        update_attendee($(this));
+    });
+
+
     $('#family_name, #guest_count').on('input', function () {
         check_to_show_submit();
     });
 
     $('#submit_btn').on('click', function () {
-        if (attending) {
-            // show modal
-             $('#guest_modal').openModal();
-        } else {
-            // submit form to indicate that user is not attending.
-        }
-    })
+        submit_form()
+    });
+
+
+    var submit_form = function () {
+        var rsvp_json = {
+            'family_name': $('#family_name').val(),
+            "guests": attending ? attendees.length : 0, "attending": attending, "guest_details": JSON.stringify(attendees)
+        };
+
+        $.ajax({
+            method: "POST",
+            url: "/rsvp",
+            data: rsvp_json,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+
+        })
+    };
 
 
     $(".scroll_link").click(function (e) {
@@ -339,5 +404,7 @@
         }, 1000);
     })
 </script>
+
+
 </body>
 </html>
