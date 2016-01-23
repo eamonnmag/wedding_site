@@ -150,47 +150,98 @@
     <section id="rsvp" class="rsvp_bg">
         <div class="rsvp">
             <div class="description">
-                <h4>RSVP</h4>
-
-                <p>Fateci sapere se è possibile frequentare il nostro matrimonio. Una volta di specificare se
-                    si può andare o no, verrà chiesto il numero di
-                    ospiti.</p>
-                <br/>
-                <div class="row">
-                    <div class="input-field col m4 s12">
-                        <input id="family_name"
-                               type="text" name="family_name">
-                        <label for="family_name">Family Name</label>
+                {% if existing_rsvp %}
+                    <div align="center">
+                        <i class="material-icons large">move_to_inbox</i>
                     </div>
 
-                    <div class="input-field col m3 s12">
-                        <select id="attendance" name="attendance">
-                            <option value="yes">Yes</option>
-                            <option value="no" selected>No</option>
-                        </select>
-                        <label>Are you able to attend?</label>
+                    <br/>
+
+                    <p class="large-text center">Thank you for sending the RSVP for the {{ existing_rsvp.family_name }}
+                        family! </p><br/>
+
+                    <hr/>
+                    <br/><br/>
+                    {% if existing_rsvp.attending %}
+                        <p>We're looking forward to seeing you at the wedding!</p>
+                        <br/>
+                        <p>Get excited and read more about the beautiful location you're going to be visiting <a href=""
+                                                                                                                 target="_new">here</a>.
+                        </p>
+                        <br/>
+                    {% else %}
+                        <p>We're sorry you can't attend, but understand! We hope to see
+                            the {{ existing_rsvp.family_name }} clan soon!</p>
+                        <br/>
+                    {% endif %}
+
+
+                    <p>If any of these details are incorrect, please email us at <a
+                            href="mailto:edits@annapaola-and-eamonn.it?subject=Edits for {{ existing_rsvp.family_name }}">edits@annapaola-and-eamonn.it</a>.
+                    </p>
+
+
+
+                    {% if existing_rsvp.attending %}
+                        <br/>
+                        <p>Guest details:</p><br/>
+
+                        <ul class="collection" id="guest_summary">
+                            {% for attendant in existing_rsvp.attendees.all %}
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle {% if attendant.type == 'adult' %}red{% else %}blue{% endif %}">
+                                        {% if attendant.type == 'adult' %}person{% else %}
+                                            child_care{% endif %}</i>
+                                    <span class="title">{{ attendant.first_name }} {{ attendant.last_name }} ({{ attendant.nationality }})</span>
+                                    <p><strong>Dietary requirements:</strong> {{ attendant.dietary_requirements }}
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    {% endif %}
+                {% else %}
+
+                    <p>Let us know if you can attend our wedding. Once you specify if
+                        you can go or not, you will be asked for the number of
+                        guests.</p>
+                    <br/>
+                    <div class="row">
+                        <div class="input-field col m4 s12">
+                            <input id="family_name"
+                                   type="text" name="family_name">
+                            <label for="family_name">Family Name</label>
+                        </div>
+
+                        <div class="input-field col m3 s12">
+                            <select id="attendance" name="attendance">
+                                <option value="yes">Yes</option>
+                                <option value="no" selected>No</option>
+                            </select>
+                            <label>Are you able to attend?</label>
+                        </div>
+
+                        <div class="input-field col m5 s12" id="guest_count_container">
+                            <input id="guest_count"
+                                   type="number" name="guest_count" disabled>
+                            <label for="guest_count">Number of Guests (incl. children)</label>
+                        </div>
+
                     </div>
 
-                    <div class="input-field col m5 s12" id="guest_count_container">
-                        <input id="guest_count"
-                               type="number" name="guest_count" disabled>
-                        <label for="guest_count">Number of Guests (incl. children)</label>
+                    <div class="row guests hidden" id="guests">
+                        {#                this is auto populated given the number of guests entered#}
                     </div>
 
-                </div>
+                    <div class="row center">
+                        <button id="submit_btn" class="btn waves-effect waves-light"
+                                type="submit"
+                                name="action" disabled>Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
 
-                <div class="row guests hidden" id="guests">
-                    {#                this is auto populated given the number of guests entered#}
-                </div>
-
-                <div class="row center">
-                    <button id="submit_btn" class="btn waves-effect waves-light"
-                            type="submit"
-                            name="action" disabled>Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-
+                {% endif %}
             </div>
         </div>
     </section>
