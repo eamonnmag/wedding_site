@@ -6,7 +6,7 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet"/>
+    <link href="/static/css/style.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
@@ -20,7 +20,7 @@
 
             <div class="nav-wrapper">
                 <a href="#welcome" class="scroll_link brand-logo"><img
-                        src="{{ STATIC_URL }}img/logo.svg" width="50px"/> </a>
+                        src="/static/img/logo.svg" width="50px"/> </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
@@ -36,7 +36,7 @@
 
                 <ul class="side-nav" id="mobile-demo">
                     <div align="center">
-                        <img src="{{ STATIC_URL }}img/logo.svg" width="50px"/>
+                        <img src="/static/img/logo.svg" width="50px"/>
                     </div>
                     <li><a href="#ceremony" class="scroll_link">Ceremony</a></li>
                     <li><a href="#reception" class="scroll_link">Reception</a></li>
@@ -47,9 +47,9 @@
                     <li><a href="/accounts/logout">Log out</a></li>
 
 
-                    <li><a href="/?l=it"><img src="{{ STATIC_URL }}img/flag-ita.svg"
+                    <li><a href="/?l=it"><img src="/static/img/flag-ita.svg"
                                             width="20px"/></a></li>
-                    <li><a href="/?l=en"><img src="{{ STATIC_URL }}img/flag-ire.svg"
+                    <li><a href="/?l=en"><img src="/static/img/flag-ire.svg"
                                             width="20px"/></a></li>
                 </ul>
             </div>
