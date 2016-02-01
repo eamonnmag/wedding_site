@@ -5,6 +5,7 @@
 
     $(document).ready(function () {
         $('select').material_select();
+        $('input[autofocus]').siblings('label, i').addClass('active');
     });
 
     var attending = false;
@@ -113,9 +114,9 @@
             data: rsvp_json,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
-            },
-
+                location.href= '/#rsvp';
+                location.reload();
+            }
         })
     };
 
