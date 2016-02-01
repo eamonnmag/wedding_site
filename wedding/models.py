@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from encodings.utf_8 import encode
 from django.db import models
 
 
@@ -24,7 +26,7 @@ class Location(models.Model):
                             blank=False)
 
     def __str__(self):
-        return "{0} - {1}, {2}".format(self.type, self.name, self.town)
+        return "{0} - {1}, {2}".format(self.type, encode(self.name), encode(self.town))
 
 
 class Attendant(models.Model):
