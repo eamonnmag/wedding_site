@@ -80,6 +80,13 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
     height: 100vh;
 }
 
+.staying_there_bg {
+    background: #ffe0ab;
+}
+
+
+
+
 .collection .collection-item.avatar {
     min-height: 63px;
 }

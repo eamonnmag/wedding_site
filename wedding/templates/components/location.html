@@ -5,7 +5,7 @@
         <span class="title">{{ loc.name }}, {{ loc.town }}</span>
         <p>{{ loc.distance_km_from_cathedral }}km from Cathedral. {{ loc.distance_km_from_reception }}km from Reception.
         </p>
-        <a href="{{ loc.booking_url }}"
+        <a href="{{ loc.booking_url }}" target="_new" alt="{{ loc.name }}, {{ loc.town }}"
            class="secondary-content"><i class="material-icons">open_in_new</i></a>
     </li>
 {% endfor %}
