@@ -39,7 +39,7 @@ class Attendant(models.Model):
     dietary_requirements = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return "{0} - {1}, {2}".format(self.first_name, self.last_name,
+        return "{0} - {1}, {2}".format(encode(self.first_name), encode(self.last_name),
                                        self.type)
 
 
@@ -53,4 +53,4 @@ class RSVP(models.Model):
     attendees = models.ManyToManyField(Attendant, null=True)
 
     def __str__(self):
-        return "{0} - {1} Guests".format(self.family_name, len(self.attendees.all()))
+        return "{0} - {1} Guests".format(encode(self.family_name), len(self.attendees.all()))
