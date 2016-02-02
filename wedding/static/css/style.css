@@ -80,12 +80,20 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
     height: 100vh;
 }
 
-.staying_there_bg {
-    background: #ffe0ab;
+.staying_there {
+    background: url(../img/stay_there.svg) no-repeat center bottom;
+    height: 100vh;
 }
 
+.staying_there_bg {
+    background: #70cce4 url(../img/stay_there_bg.svg) repeat-x center bottom;
+}
 
-
+@media (max-width: 700px) {
+    #map_getting_there {
+        display: none;
+    }
+}
 
 .collection .collection-item.avatar {
     min-height: 63px;

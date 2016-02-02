@@ -69,7 +69,7 @@
                 <h4>Getting There</h4>
 
                 <div class="row">
-                    <div class="col m3">
+                    <div class="col m3" id="map_getting_there">
                         <img src="/static/img/map.svg" width="100%"/>
                     </div>
 
@@ -79,9 +79,12 @@
 
                         <p>The closest airport is in Bari which is ~45 minutes away
                             from the wedding venue in Trani. Bari is served by
-                            Ryanair from Dublin. From London, you can travel with Alitalia and Ryanair. <a href="https://www.hipmunk.com/" target="_blank">Hipmunk</a> is a good site for finding the best deals.</p>
+                            Ryanair from Dublin. From London, you can travel with Alitalia and Ryanair. <a
+                                    href="https://www.hipmunk.com/" target="_blank">Hipmunk</a> is a good site for
+                            finding the best deals.</p>
                         <br/>
-                        <p>If you fly to Rome or Naples, it would be best to rent a car and drive to Puglia. It takes about 4 hours from Rome and 2.5 hours from Naples.</p>
+                        <p>If you fly to Rome or Naples, it would be best to rent a car and drive to Puglia. It takes
+                            about 4 hours from Rome and 2.5 hours from Naples.</p>
 
                     </div>
 
@@ -97,18 +100,15 @@
                 <h4>Staying There</h4>
 
                 <div class="row">
-                    <div class="col m3">
-                        <img src="/static/img/map.svg" width="100%"/>
-                    </div>
+                    <div class="col m12">
 
-                    <div class="col m9">
-
-                        <p>The wedding venue, Villa Sant'Elia is ~25 minutes away from Trani.</p><br/>
-
-                        <p>Hotels are available in Trani, as are B&Bs (and <a target="_new" href="https://www.airbnb.com/s/trani?checkin=05%2F13%2F2016&checkout=05%2F16%2F2016&room_types%5B%5D=Entire+home%2Fapt&zoom=15&search_by_map=true&sw_lat=41.26519429096949&sw_lng=16.412516801437846&ne_lat=41.28592822664123&ne_lng=16.438051431259623&ss_id=u1xe7xb1">airbnb</a>).
+                        <p>Hotels are available in Trani, as are B&Bs (and <a target="_new"
+                                                                              href="https://www.airbnb.com/s/trani?checkin=05%2F13%2F2016&checkout=05%2F16%2F2016&room_types%5B%5D=Entire+home%2Fapt&zoom=15&search_by_map=true&sw_lat=41.26519429096949&sw_lng=16.412516801437846&ne_lat=41.28592822664123&ne_lng=16.438051431259623&ss_id=u1xe7xb1">airbnb</a>).
                             The nearby town of Barletta also has various hotels.</p><br/>
 
-                        <p>We've collected a few (not an exhaustive list) hotels and B&Bs for you. Trani is a really beautiful place, so it's worth staying in. Barletta has a larger hotel but has some equally beautiful surroundings of its own.</p>
+                        <p>We've collected a few (not an exhaustive list) hotels and B&Bs for you. Trani is a really
+                            beautiful place, so it's worth staying in. Barletta has a larger hotel but has some equally
+                            beautiful surroundings of its own.</p>
                         <br/>
 
                         <button data-target="hotel_modal"
@@ -119,6 +119,16 @@
                                 class="btn waves-effect waves-light btn light-blue modal-trigger">
                             B&Bs
                         </button>
+
+                        <br/><br/>
+                        <p>We've also created a little map so the main wedding locations and some of the nice
+                            attractions can be seen!</p>
+
+                        <a class="btn waves-effect waves-light btn light-blue modal-trigger"
+                           href="https://www.google.com/maps/d/edit?mid=zSlkWXDFK_1M.k0kS6z371XrY&usp=sharing"
+                           target="_blank" style="font-weight: normal">
+                            Recommended Itinerary Map
+                        </a>
 
                     </div>
 
@@ -136,24 +146,26 @@
 
                 {% if existing_rsvp %}
                     <div align="center">
-                    <i class="material-icons large">move_to_inbox</i>
+                        <i class="material-icons large">move_to_inbox</i>
                     </div>
 
                     <br/>
 
-                    <p class="large-text center">Thank you for sending the RSVP for the {{ existing_rsvp.family_name }} family! </p><br/>
+                    <p class="large-text center">Thank you for sending the RSVP for the {{ existing_rsvp.family_name }}
+                        family! </p><br/>
 
                     <hr/>
                     <br/><br/>
                     {% if existing_rsvp.attending %}
                         <p>We're looking forward to seeing you at the wedding!</p>
-<br/>
+                        <br/>
                         <p>Get excited and read more about the beautiful location you're going to be visiting <a href=""
                                                                                                                  target="_new">here</a>.
                         </p>
                         <br/>
                     {% else %}
-                        <p>We're sorry you can't attend, but understand! We hope to see the {{ existing_rsvp.family_name }} clan soon!</p>
+                        <p>We're sorry you can't attend, but understand! We hope to see
+                            the {{ existing_rsvp.family_name }} clan soon!</p>
                         <br/>
                     {% endif %}
 
