@@ -54,6 +54,7 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
 
 .church_bg {
     background: #70cce4 url(../img/church_bg.svg) repeat-x center bottom;
+    background-size: 8px;
 }
 
 .church {
@@ -64,6 +65,7 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
 .reception_bg {
     background: #35495e url(../img/reception_bg.svg) repeat-x center bottom;
     color: white;
+    background-size: 8px;
 }
 
 .reception {
@@ -73,6 +75,7 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
 
 .getting_there_bg {
     background: #70cce4 url(../img/get_there_bg.svg) repeat-x center bottom;
+    background-size: 8px;
 }
 
 .getting_there {
@@ -87,12 +90,42 @@ nav ul li:hover, nav a:hover, .side-nav li:hover, .side-nav li a:hover, .side-na
 
 .staying_there_bg {
     background: #70cce4 url(../img/stay_there_bg.svg) repeat-x center bottom;
+    background-size: 3px;
+}
+
+.hidden {
+    display: none;
 }
 
 @media (max-width: 700px) {
+
     #map_getting_there {
         display: none;
     }
+
+    .church_bg {
+        background-size: 4px;
+    }
+
+    .reception_bg {
+        background-size: 5px;
+    }
+
+    .staying_there_bg {
+        background-size: 1px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .church_bg {
+        background-size: 7px;
+    }
+
+    .reception_bg {
+        background-size: 6px;
+    }
+
 }
 
 .collection .collection-item.avatar {

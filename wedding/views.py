@@ -15,7 +15,6 @@ from wedding.utils.ip import get_client_ip
 
 @login_required
 def home(request):
-
     lang = request.GET.get('l', 'en')
 
     hotels_trani = Location.objects.filter(town='Trani',
@@ -51,6 +50,7 @@ def accept_rsvp(request):
 
     family_name = request.POST.get('family_name', None)
     attending = request.POST.get('attending')
+    address = request.POST.get('address', '')
 
     attendees = request.POST.get('guest_details', '[]')
     attendees = json.loads(attendees)
@@ -63,13 +63,15 @@ def accept_rsvp(request):
         return JsonResponse({'success': False, type: 'existing_rsvp',
                              'message': 'An existing RSVP is in our system from the same IP adrdress.'})
     else:
-        rsvp = RSVP(ip_address=ip_address, family_name=family_name, attending=attending)
+        rsvp = RSVP(ip_address=ip_address, family_name=family_name, attending=attending, address=address)
         rsvp.save()
 
         for attendee in attendees:
+            type = attendee['adultchild']
+
             attendant = Attendant(first_name=attendee['firstname'], last_name=attendee['lastname'],
                                   nationality=attendee['nationality'],
-                                  type = attendee['adultchild'],
+                                  type=type,
                                   dietary_requirements=attendee['dietrequirements'])
             attendant.save()
             rsvp.attendees.add(attendant)

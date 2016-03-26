@@ -13,9 +13,11 @@
 
     $('#attendance').on('change', function () {
         if ($(this).val() === 'yes') {
-            $('#guest_count').prop('disabled', false)
+            $('#guest_count').prop('disabled', false);
+            $('#guest_address').prop('disabled', false);
         } else {
-            $('#guest_count').prop('disabled', true)
+            $('#guest_count').prop('disabled', true);
+            $('#guest_address').prop('disabled', true);
         }
         check_to_show_submit();
     });
@@ -44,7 +46,7 @@
     var no_attendance_html = no_attendance_template('');
 
     function check_to_show_submit() {
-        if ($('#family_name').val().length > 0) {
+        if ($('#family_name').val().length > 0 && $('#guest_address').val().length > 0) {
             if ($('#attendance').val() === 'yes') {
                 attending = true;
 
@@ -70,6 +72,7 @@
                     $("#guests").html(html);
                     $('select').material_select();
                     $("#guests").removeClass('hidden');
+                    $("#address").removeClass('hidden');
                 } else {
                     $("#guests").html(no_guest_html);
                     $('#submit_btn').prop('disabled', true);
@@ -93,7 +96,7 @@
     });
 
 
-    $('#family_name, #guest_count').on('input', function () {
+    $('#family_name, #guest_count, #guest_address').on('input', function () {
         check_to_show_submit();
     });
 
@@ -103,9 +106,12 @@
 
 
     var submit_form = function () {
+
+        var address = $('#guest_address').val();
+
         var rsvp_json = {
             'family_name': $('#family_name').val(),
-            "guests": attending ? attendees.length : 0, "attending": attending, "guest_details": JSON.stringify(attendees)
+            "guests": attending ? attendees.length : 0, "address": address, "attending": attending, "guest_details": JSON.stringify(attendees)
         };
 
         $.ajax({

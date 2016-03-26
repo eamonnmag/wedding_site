@@ -30,7 +30,7 @@ class Location(models.Model):
 
 
 class Attendant(models.Model):
-    type = models.CharField(max_length=32)
+    type = models.CharField(max_length=32, default='adult')
 
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
@@ -51,6 +51,8 @@ class RSVP(models.Model):
     attending = models.BooleanField(default=False)
 
     attendees = models.ManyToManyField(Attendant, null=True)
+
+    address = models.TextField(null=True)
 
     def __str__(self):
         return "{0} - {1} Guests".format(encode(self.family_name), len(self.attendees.all()))
