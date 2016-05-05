@@ -43,6 +43,13 @@ def home(request):
 
 
 @login_required
+def guests(request):
+    attendees = Attendant.objects.exclude(dietary_requirements='None').all()
+
+    return render_to_response("guests_diet.html", {'attendees': attendees})
+
+
+@login_required
 @csrf_exempt
 @require_http_methods(["POST"])
 def accept_rsvp(request):

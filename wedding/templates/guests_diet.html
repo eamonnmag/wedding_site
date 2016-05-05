@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h4>Guests with Dietary Requirements</h4>
+
+        <ul class="collection" id="guest_summary">
+            {% for attendant in attendees.all %}
+                <li class="collection-item avatar">
+                    <i class="material-icons circle {% if attendant.type == 'adult' %}red{% else %}blue{% endif %}">
+                        {% if attendant.type == 'adult' %}
+                            person{% else %}
+                            child_care{% endif %}</i>
+                    <span class="title">{{ attendant.first_name }} {{ attendant.last_name }} ({{ attendant.nationality }})</span>
+                    <p><strong>Dietary
+                        requirements:</strong> {{ attendant.dietary_requirements }}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
